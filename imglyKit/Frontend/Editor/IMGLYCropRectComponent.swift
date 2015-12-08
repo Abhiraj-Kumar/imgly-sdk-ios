@@ -10,12 +10,12 @@ import UIKit
 
 public class IMGLYCropRectComponent {
     public var cropRect = CGRectZero
-
+    
     private var topLineView_:UIView = UIView(frame: CGRectZero)
     private var bottomLineView_:UIView = UIView(frame: CGRectZero)
     private var leftLineView_:UIView = UIView(frame: CGRectZero)
     private var rightLineView_:UIView = UIView(frame: CGRectZero)
-
+    
     public var topLeftAnchor_:UIImageView?
     public var topRightAnchor_:UIImageView?
     public var bottomLeftAnchor_:UIImageView?
@@ -23,7 +23,7 @@ public class IMGLYCropRectComponent {
     private var transparentView_:UIView?
     private var parentView_:UIView?
     private var showAnchors_ = true
-
+    
     // call this in viewDidLoad
     public func setup(transparentView:UIView, parentView:UIView, showAnchors:Bool) {
         transparentView_ = transparentView
@@ -32,7 +32,7 @@ public class IMGLYCropRectComponent {
         setupLineViews()
         setupAnchors()
     }
-
+    
     // call this in viewDidAppear
     public func present() {
         layoutViewsForCropRect()
@@ -46,7 +46,7 @@ public class IMGLYCropRectComponent {
         setupLineView(leftLineView_)
         setupLineView(rightLineView_)
     }
-
+    
     private func setupLineView(lineView:UIView) {
         lineView.backgroundColor = UIColor.whiteColor()
         lineView.hidden = true
@@ -65,7 +65,7 @@ public class IMGLYCropRectComponent {
         maskLayer.path = path.CGPath
         maskLayer.fillRule = kCAFillRuleEvenOdd
         
-       transparentView_!.layer.mask = maskLayer
+        transparentView_!.layer.mask = maskLayer
     }
     
     private func setupAnchors() {
@@ -128,5 +128,17 @@ public class IMGLYCropRectComponent {
         rightLineView_.hidden = false
         topLineView_.hidden = false
         bottomLineView_.hidden = false
+    }
+    
+    public func hideViews(){
+        topLeftAnchor_!.hidden = true
+        topRightAnchor_!.hidden = true
+        bottomLeftAnchor_!.hidden = true
+        bottomRightAnchor_!.hidden = true
+        leftLineView_.hidden = true
+        rightLineView_.hidden = true
+        topLineView_.hidden = true
+        bottomLineView_.hidden = true
+        
     }
 }

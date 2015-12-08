@@ -18,7 +18,7 @@ import UIKit
 public let MinimumCropSize = CGFloat(50)
 
 public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
-
+    
     // MARK: - Properties
     
     public private(set) lazy var freeRatioButton: IMGLYImageCaptionButton = {
@@ -29,7 +29,7 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: "activateFreeRatio:", forControlEvents: .TouchUpInside)
         return button
-        }()
+    }()
     
     public private(set) lazy var oneToOneRatioButton: IMGLYImageCaptionButton = {
         let bundle = NSBundle(forClass: self.dynamicType)
@@ -39,7 +39,7 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: "activateOneToOneRatio:", forControlEvents: .TouchUpInside)
         return button
-        }()
+    }()
     
     public private(set) lazy var fourToThreeRatioButton: IMGLYImageCaptionButton = {
         let bundle = NSBundle(forClass: self.dynamicType)
@@ -49,7 +49,7 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: "activateFourToThreeRatio:", forControlEvents: .TouchUpInside)
         return button
-        }()
+    }()
     
     public private(set) lazy var sixteenToNineRatioButton: IMGLYImageCaptionButton = {
         let bundle = NSBundle(forClass: self.dynamicType)
@@ -59,7 +59,7 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: "activateSixteenToNineRatio:", forControlEvents: .TouchUpInside)
         return button
-        }()
+    }()
     
     private var selectedButton: IMGLYImageCaptionButton? {
         willSet(newSelectedButton) {
@@ -75,7 +75,7 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         return view
-        }()
+    }()
     
     private let cropRectComponent = IMGLYInstanceFactory.cropRectComponent()
     public var selectionMode = IMGLYSelectionMode.Free
@@ -85,7 +85,7 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
     private var cropRectTopBound = CGFloat(0)
     private var cropRectBottomBound = CGFloat(0)
     private var dragOffset = CGPointZero
-
+    
     // MARK: - UIViewController
     
     override public func viewDidLoad() {
@@ -128,9 +128,12 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
     
     public override func tappedDone(sender: UIBarButtonItem?) {
         fixedFilterStack.orientationCropFilter.cropRect = normalizedCropRect()
+        cropRectComponent.hideViews()
         
         updatePreviewImageWithCompletion {
+            
             super.tappedDone(sender)
+            
         }
     }
     
@@ -523,10 +526,10 @@ public class IMGLYCropEditorViewController: IMGLYSubEditorViewController {
         let sizeDeltaY = (size.height - rectHeight) / 2.0
         
         cropRectComponent.cropRect = CGRectMake(
-            cropRectLeftBound  + sizeDeltaX,
-            cropRectTopBound + sizeDeltaY,
-            rectWidth,
-            rectHeight)
+            cropRectLeftBound  + sizeDeltaX+10,
+            cropRectTopBound + sizeDeltaY+10,
+            rectWidth-20,
+            rectHeight-20)
     }
     
     private func calculateRatioForSelectionMode() {
